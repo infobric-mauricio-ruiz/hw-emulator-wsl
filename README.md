@@ -76,18 +76,18 @@ Create the `C:\WSLImages\` directory first if it does not exist.
 ### Step 4.1: Create a directory for the WSL distro
 
 ```powershell
-mkdir C:\WSL\EmuQt6
+mkdir C:\WSL\emu-qt6
 ```
 
 ### Step 4.2: Import the root filesystem as a WSL 2 distribution
 
 ```powershell
-wsl --import EmuQt6 C:\WSL\EmuQt6 C:\WSLImages\emuqt6-rootfs.tar --version 2
+wsl --import emu-qt6 C:\WSL\emu-qt6 C:\WSLImages\emuqt6-rootfs.tar --version 2
 ```
 
 This will:
-- Create a new WSL 2 distribution named `EmuQt6`
-- Store it in `C:\WSL\EmuQt6`
+- Create a new WSL 2 distribution named `emu-qt6`
+- Store it in `C:\WSL\emu-qt6`
 - Import the root filesystem from the tar archive
 
 ### Step 4.3: Verify that the distribution exists and is WSL 2
@@ -96,12 +96,12 @@ This will:
 wsl -l -v
 ```
 
-You should see `EmuQt6` listed with VERSION 2.
+You should see `emu-qt6` listed with VERSION 2.
 
 ### Step 4.4: Launch the distribution
 
 ```powershell
-wsl -d EmuQt6
+wsl -d emu-qt6
 ```
 
 ---
@@ -112,3 +112,64 @@ wsl -d EmuQt6
 - `Dockerfile` - Docker image definition for the emulator environment
 - `emu-wsl-setup.service` - systemd service for WSL initialization
 - `wsl.conf` - WSL-specific configuration file
+
+---
+
+## Backup: Export WSL Distribution from Windows
+
+If you want to back up the `emu-qt6` distribution or transfer it to another machine:
+
+### Step 1: Create a directory for the backup
+
+```powershell
+mkdir C:\WSLImages
+```
+
+### Step 2: Export the WSL distribution as a backup file
+
+```powershell
+wsl --export emu-qt6 C:\WSLImages\Backup-emu-qt6.wsl
+```
+
+This creates a `.wsl` archive of the entire distribution that can be re-imported later using `wsl --import`.
+
+---
+
+## Troubleshooting: Removing WSL Distribution
+
+If you need to remove the WSL distribution or reinstall it, follow these steps:
+
+### Step 1: List all WSL distributions
+
+```powershell
+wsl -l -v
+```
+
+This will show all installed distributions and their versions.
+
+### Step 2: Shutdown WSL (if running)
+
+```powershell
+wsl --shutdown
+```
+
+This stops all running WSL instances and releases resources.
+
+### Step 3: Unregister the emu-qt6 distribution
+
+```powershell
+wsl --unregister emu-qt6
+```
+
+This removes the `emu-qt6` distribution completely. **Warning: This deletes all files in the distribution.**
+
+### Step 4: Verify removal
+
+```powershell
+wsl -l -v
+```
+
+The `emu-qt6` distribution should no longer appear in the list.
+
+
+This installs and launches a fresh Ubuntu distribution.

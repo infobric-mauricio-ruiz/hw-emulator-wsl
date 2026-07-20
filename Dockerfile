@@ -14,9 +14,9 @@ RUN apt update && \
         libarchive-dev \
         psmisc
 
-COPY emulators/hardware-emulator/docker/wsl.conf /etc/wsl.conf
-COPY emulators/hardware-emulator/docker/configure-wsl-runtime.sh /usr/local/sbin/configure-wsl-runtime.sh
-COPY emulators/hardware-emulator/docker/emu-wsl-setup.service /etc/systemd/system/emu-wsl-setup.service
+COPY wsl.conf /etc/wsl.conf
+COPY configure-wsl-runtime.sh /usr/local/sbin/configure-wsl-runtime.sh
+COPY emu-wsl-setup.service /etc/systemd/system/emu-wsl-setup.service
 
 RUN chmod 0755 /usr/local/sbin/configure-wsl-runtime.sh && \
     mkdir -p /etc/systemd/system/multi-user.target.wants && \
