@@ -17,18 +17,18 @@ This guide explains how to set up the emulator as a Windows Subsystem for Linux 
 ### Step 1.1: Build the Docker image
 
 ```bash
-docker build -t emu-qt6:latest .
+docker build -t hw-emulator:latest .
 ```
 
 This command will:
 - Read the `Dockerfile` in the current directory
-- Build a Docker image named `emu-qt6` with the `latest` tag
+- Build a Docker image named `hw-emulator` with the `latest` tag
 - Include the emulator and all dependencies
 
 ### Step 1.2: Verify the image was created
 
 ```bash
-docker images | grep emu-qt6
+docker images | grep hw-emulator
 ```
 
 ---
@@ -38,13 +38,13 @@ docker images | grep emu-qt6
 ### Step 2.1: Create a container from the Docker image
 
 ```bash
-docker create --name emuqt6-wsl emu-qt6:latest
+docker create --name hw-emulator-wsl hw-emulator:latest
 ```
 
 ### Step 2.2: Export the container as a root filesystem
 
 ```bash
-docker export emuqt6-wsl -o emuqt6-rootfs.tar
+docker export hw-emulator-wsl -o hw-emulator-rootfs.tar
 ```
 
 This creates a compressed archive of the entire filesystem (~1-2 GB depending on image size).
@@ -52,7 +52,7 @@ This creates a compressed archive of the entire filesystem (~1-2 GB depending on
 ### Step 2.3: Verify that the file was created
 
 ```bash
-ls -lh emuqt6-rootfs.tar
+ls -lh hw-emulator-rootfs.tar
 ```
 
 ---
@@ -61,10 +61,10 @@ ls -lh emuqt6-rootfs.tar
 
 ### Step 3.1: Copy the root filesystem to Windows
 
-Copy the file `emuqt6-rootfs.tar` to the following path on Windows:
+Copy the file `hw-emulator-rootfs.tar` to the following path on Windows:
 
 ```
-C:\WSLImages\emuqt6-rootfs.tar
+C:\WSLImages\hw-emulator-rootfs.tar
 ```
 
 Create the `C:\WSLImages\` directory first if it does not exist.
@@ -76,18 +76,18 @@ Create the `C:\WSLImages\` directory first if it does not exist.
 ### Step 4.1: Create a directory for the WSL distro
 
 ```powershell
-mkdir C:\WSL\emu-qt6
+mkdir C:\WSL\hw-emulator
 ```
 
 ### Step 4.2: Import the root filesystem as a WSL 2 distribution
 
 ```powershell
-wsl --import emu-qt6 C:\WSL\emu-qt6 C:\WSLImages\emuqt6-rootfs.tar --version 2
+wsl --import hw-emulator C:\WSL\hw-emulator C:\WSLImages\hw-emulator-rootfs.tar --version 2
 ```
 
 This will:
-- Create a new WSL 2 distribution named `emu-qt6`
-- Store it in `C:\WSL\emu-qt6`
+- Create a new WSL 2 distribution named `hw-emulator`
+- Store it in `C:\WSL\hw-emulator`
 - Import the root filesystem from the tar archive
 
 ### Step 4.3: Verify that the distribution exists and is WSL 2
@@ -96,12 +96,12 @@ This will:
 wsl -l -v
 ```
 
-You should see `emu-qt6` listed with VERSION 2.
+You should see `hw-emulator` listed with VERSION 2.
 
 ### Step 4.4: Launch the distribution
 
 ```powershell
-wsl -d emu-qt6
+wsl -d hw-emulator
 ```
 
 ---
@@ -117,7 +117,7 @@ wsl -d emu-qt6
 
 ## Backup: Export WSL Distribution from Windows
 
-If you want to back up the `emu-qt6` distribution or transfer it to another machine:
+If you want to back up the `hw-emulator` distribution or transfer it to another machine:
 
 ### Step 1: Create a directory for the backup
 
@@ -128,7 +128,7 @@ mkdir C:\WSLImages
 ### Step 2: Export the WSL distribution as a backup file
 
 ```powershell
-wsl --export emu-qt6 C:\WSLImages\Backup-emu-qt6.wsl
+wsl --export hw-emulator C:\WSLImages\Backup-hw-emulator.wsl
 ```
 
 This creates a `.wsl` archive of the entire distribution that can be re-imported later using `wsl --import`.
@@ -155,13 +155,13 @@ wsl --shutdown
 
 This stops all running WSL instances and releases resources.
 
-### Step 3: Unregister the emu-qt6 distribution
+### Step 3: Unregister the hw-emulator distribution
 
 ```powershell
-wsl --unregister emu-qt6
+wsl --unregister hw-emulator
 ```
 
-This removes the `emu-qt6` distribution completely. **Warning: This deletes all files in the distribution.**
+This removes the `hw-emulator` distribution completely. **Warning: This deletes all files in the distribution.**
 
 ### Step 4: Verify removal
 
@@ -169,7 +169,7 @@ This removes the `emu-qt6` distribution completely. **Warning: This deletes all 
 wsl -l -v
 ```
 
-The `emu-qt6` distribution should no longer appear in the list.
+The `hw-emulator` distribution should no longer appear in the list.
 
 
 This installs and launches a fresh Ubuntu distribution.
