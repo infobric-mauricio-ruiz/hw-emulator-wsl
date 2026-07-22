@@ -15,6 +15,7 @@ RUN apt update && \
         psmisc
 
 COPY wsl.conf /etc/wsl.conf
+COPY wsl-distribution.conf /etc/wsl-distribution.conf
 COPY configure-wsl-runtime.sh /usr/local/sbin/configure-wsl-runtime.sh
 COPY emu-wsl-setup.service /etc/systemd/system/emu-wsl-setup.service
 
